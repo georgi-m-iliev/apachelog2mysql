@@ -7,9 +7,11 @@ apachelog2mysql is a python script (and more) to upload apache logs to MySQL DB 
 1. Create the required database, user and tables.
 ```mysql
 CREATE DATABASE ip_track;
+CREATE USER 'ip-track'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON `ip_tack`.* TO 'ip_track'@'%' WITH GRANT OPTION;
 USE ip_tack;
-CREATE TABLE `test_ip_tack`.`geolocation` ( `id` INT NOT NULL AUTO_INCREMENT , `ip` TINYTEXT NOT NULL , `country_code` TINYTEXT NOT NULL , `country_name` TINYTEXT NOT NULL , `city` TEXT NOT NULL , `latitude` TEXT NOT NULL , `longitude` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-CREATE TABLE `test_ip_tack`.`logs` ( `id` INT NOT NULL AUTO_INCREMENT , `server_name` TEXT NOT NULL , `ip` TINYTEXT NOT NULL , `user` TINYTEXT NOT NULL , `date` DATETIME NOT NULL , `request` TEXT NOT NULL , `request_url` TEXT NOT NULL , `response` TINYTEXT NOT NULL , `size` TINYTEXT NOT NULL , `request_referer_url` TEXT NOT NULL , `request_user_agent` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `ip_tack`.`geolocation` ( `id` INT NOT NULL AUTO_INCREMENT , `ip` TINYTEXT NOT NULL , `country_code` TINYTEXT NOT NULL , `country_name` TINYTEXT NOT NULL , `city` TEXT NOT NULL , `latitude` TEXT NOT NULL , `longitude` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `ip_tack`.`logs` ( `id` INT NOT NULL AUTO_INCREMENT , `server_name` TEXT NOT NULL , `ip` TINYTEXT NOT NULL , `user` TINYTEXT NOT NULL , `date` DATETIME NOT NULL , `request` TEXT NOT NULL , `request_url` TEXT NOT NULL , `response` TINYTEXT NOT NULL , `size` TINYTEXT NOT NULL , `request_referer_url` TEXT NOT NULL , `request_user_agent` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ```
 2. Copy the services from the services folder to /lib/systemd/system (or wherever you would like).
 3. Put the python and shell scripts in /usr/share/apachelog2mysql (you can change the folder name and place by editing the services)
